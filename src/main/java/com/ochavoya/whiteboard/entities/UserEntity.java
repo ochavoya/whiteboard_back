@@ -35,4 +35,16 @@ public class UserEntity {
         this.password = encrypt(userRegisterDTO.getPassword());
         this.active = true;
     }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
