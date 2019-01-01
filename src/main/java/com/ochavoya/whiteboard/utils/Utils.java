@@ -27,7 +27,8 @@ public class Utils {
         for(int i=0; i< digested.length; ++i) {
             buffer.append(Integer.toHexString(0xff & digested[i]));
         }
-        return String.format("%s:%s", salt, buffer.toString()).substring(0,128);
+
+        return String.format("%s:%s", salt, buffer.toString());
     }
 
     public static final String encrypt(String password) {

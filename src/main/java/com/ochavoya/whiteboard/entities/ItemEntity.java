@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 public class ItemEntity {
     @Id
     @Column
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column
     private Integer boardId;
