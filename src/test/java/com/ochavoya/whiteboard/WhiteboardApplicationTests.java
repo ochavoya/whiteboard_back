@@ -16,8 +16,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -50,9 +49,14 @@ public class WhiteboardApplicationTests {
 		assertTrue(response.getSuccess());
 		assertEquals("User __test__ was successfully registered.", response.getMessage());
 		assertEquals(userEntityList.size(),1);
+
+		// Act - repeat registration
+		response = userRepositoryService.register(userRegisterDTO);
+
+		// Assert
+		assertFalse(response.getSuccess());
+		assertEquals("Username __test__ is already taken.", response.getMessage());
 	}
-
-
 
 
 }
