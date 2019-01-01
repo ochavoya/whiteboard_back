@@ -1,6 +1,7 @@
 package com.ochavoya.whiteboard;
 
 import com.ochavoya.whiteboard.dto.UserRegisterDTO;
+import com.ochavoya.whiteboard.dto.WhiteboardResponse;
 import com.ochavoya.whiteboard.entities.UserEntity;
 import com.ochavoya.whiteboard.repository.UserRepository;
 import com.ochavoya.whiteboard.service.UserRepositoryService;
@@ -14,6 +15,7 @@ import javax.transaction.Transactional;
 
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -23,6 +25,7 @@ public class WhiteboardApplicationTests {
 
 	@Autowired
 	private UserRepositoryService userRepositoryService;
+
 	@Autowired
 	private UserRepository userRepository;
 
@@ -40,11 +43,17 @@ public class WhiteboardApplicationTests {
 		userRegisterDTO.setPassword("password");
 
 		// Act
-		userRepositoryService.register(userRegisterDTO);
+		WhiteboardResponse response = userRepositoryService.register(userRegisterDTO);
 		List<UserEntity> userEntityList = userRepository.getUserEntitiesByUsername("__test__");
 
 		// Assert
+		assertTrue(response.getSuccess());
+		assertEquals("User __test__ was successfully registered.", response.getMessage());
 		assertEquals(userEntityList.size(),1);
 	}
+
+
+
+
 }
 

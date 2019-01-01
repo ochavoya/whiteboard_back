@@ -8,4 +8,12 @@ public class WhiteboardResponse {
         this.success = success;
         this.message = message;
     }
+
+    public Boolean getSuccess() {
+        return success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

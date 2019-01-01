@@ -11,7 +11,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-@Data
 @NoArgsConstructor
 public class UserEntity {
 
@@ -37,4 +36,3 @@ public class UserEntity {
         this.active = true;
     }
 }
-
