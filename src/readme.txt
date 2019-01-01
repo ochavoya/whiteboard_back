@@ -1,5 +1,8 @@
 MYSQL SCRIPT TO CREATE THE DATABASE
 
+DROP USER 'whiteboard_admin';
+
+DROP DATABASE whiteboard;
 
 CREATE DATABASE whiteboard;
 
@@ -28,6 +31,6 @@ CREATE TABLE items (
   CONSTRAINT FOREIGN KEY (userId) REFERENCES user(id)
 );
 
-CREATE USER  ‘whiteboard_admin’ IDENTIFIED BY ‘socrates’;
+CREATE USER 'whiteboard_admin' IDENTIFIED BY 'socrates';
 
-GRANT ALL ON whiteboard.* TO ‘whiteboard_admin’;
+GRANT ALL ON whiteboard.* TO 'whiteboard_admin';
