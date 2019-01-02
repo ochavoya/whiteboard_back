@@ -1,7 +1,6 @@
 package com.ochavoya.whiteboard.entities;
 
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,7 +8,6 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name="items")
-@Data
 @NoArgsConstructor
 public class WhiteboardItemEntity {
     @Id
@@ -32,4 +30,40 @@ public class WhiteboardItemEntity {
     private Timestamp expiresOn;
     @Column
     private Boolean active;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Integer getBoardId() {
+        return boardId;
+    }
+
+    public Integer getSectionId() {
+        return sectionId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public Timestamp getCreatedOn() {
+        return createdOn;
+    }
+
+    public Timestamp getExpiresOn() {
+        return expiresOn;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
 }

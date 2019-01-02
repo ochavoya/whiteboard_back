@@ -2,12 +2,11 @@ package com.ochavoya.whiteboard.entities;
 
 
 import com.ochavoya.whiteboard.dto.UserRegisterDTO;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import static com.ochavoya.whiteboard.utils.Utils.*;
-
 import javax.persistence.*;
+
+import static com.ochavoya.whiteboard.utils.Utils.encrypt;
 
 @Entity
 @Table(name = "user")
@@ -36,15 +35,43 @@ public class UserEntity {
         this.active = true;
     }
 
-    public Boolean getActive() {
-        return active;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getToken() {
+        return token;
     }
 
     public void setToken(String token) {
         this.token = token;
     }
 
-    public String getPassword() {
-        return password;
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

@@ -1,7 +1,30 @@
 package com.ochavoya.whiteboard.service;
 
+import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
+import com.ochavoya.whiteboard.repository.UserRepository;
+import com.ochavoya.whiteboard.repository.WhiteboardDataRepository;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WhiteboardDataRepositoryService {
+    private UserRepository userRepository;
+    private WhiteboardDataRepository whiteboardDataRepository;
+
+    public WhiteboardDataRepositoryService(UserRepository userRepository, WhiteboardDataRepository whiteboardDataRepository) {
+        this.userRepository = userRepository;
+        this.whiteboardDataRepository = whiteboardDataRepository;
+    }
+
+    public List<WhiteboardItemDTO> load() {
+        return whiteboardDataRepository.getWhiteboardItemEntitiesByExpiresOnAfter(new Timestamp((new Date()).getTime()))
+                .stream()
+                .filter(x->x.getActive())
+                .map(x-> new WhiteboardItemDTO(x))
+                .collect(Collectors.toList());
+    }
 }
