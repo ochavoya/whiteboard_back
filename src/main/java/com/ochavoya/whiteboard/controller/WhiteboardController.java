@@ -1,5 +1,6 @@
 package com.ochavoya.whiteboard.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ochavoya.whiteboard.dto.UserLoginDTO;
 import com.ochavoya.whiteboard.dto.UserRegisterDTO;
@@ -74,9 +75,9 @@ public class WhiteboardController {
             return new WhiteboardResponse(false, "form has errors");
         }
         try {
-            return new WhiteboardResponse(true, "message");
+            return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.create(whiteboardItemDTO)));
         }
-        catch (RuntimeException rte) {
+        catch (RuntimeException | JsonProcessingException ex) {
             return new WhiteboardResponse(false, GENERIC_ERROR);
         }
     }
@@ -84,9 +85,9 @@ public class WhiteboardController {
     @PostMapping("/load")
     public WhiteboardResponse load() {
         try {
-            return new WhiteboardResponse(true, "message");
+            return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.load()));
         }
-        catch (RuntimeException rte) {
+        catch (RuntimeException | JsonProcessingException ex) {
             return new WhiteboardResponse(false, GENERIC_ERROR);
         }
     }

@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface WhiteboardDataRepository extends JpaRepository<WhiteboardItemEntity, Integer> {
-    List<WhiteboardItemEntity> getWhiteboardItemEntitiesByExpiresOnAfter(Timestamp timestamp);
+    List<WhiteboardItemEntity> getWhiteboardItemEntitiesByExpiresOnBefore(Timestamp timestamp);
 }

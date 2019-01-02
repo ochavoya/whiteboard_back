@@ -4,6 +4,7 @@ import com.ochavoya.whiteboard.entities.WhiteboardItemEntity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 
 public class WhiteboardItemDTO {
     @NotNull
@@ -16,6 +17,8 @@ public class WhiteboardItemDTO {
     @NotNull
     @Length( max=200)
     private String detail;
+    @NotNull
+    private Timestamp expiresOn;
     private String token;
 
     public WhiteboardItemDTO(WhiteboardItemEntity whiteboardItemEntity) {
@@ -39,6 +42,10 @@ public class WhiteboardItemDTO {
 
     public String getDetail() {
         return detail;
+    }
+
+    public Timestamp getExpiresOn() {
+        return expiresOn;
     }
 
     public String getToken() {

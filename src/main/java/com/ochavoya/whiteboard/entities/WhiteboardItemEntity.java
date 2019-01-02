@@ -1,6 +1,7 @@
 package com.ochavoya.whiteboard.entities;
 
 
+import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -25,11 +26,19 @@ public class WhiteboardItemEntity {
     @Column
     private String detail;
     @Column
-    private Timestamp createdOn;
-    @Column
     private Timestamp expiresOn;
     @Column
     private Boolean active;
+
+    public WhiteboardItemEntity(WhiteboardItemDTO whiteboardItemDTO, Integer userId) {
+        this.boardId = whiteboardItemDTO.getBoardId();
+        this.sectionId = whiteboardItemDTO.getSectionId();
+        this.userId = userId;
+        this.title = whiteboardItemDTO.getTitle();
+        this.detail = whiteboardItemDTO.getDetail();
+        this.expiresOn = whiteboardItemDTO.getExpiresOn();
+        this.active = true;
+    }
 
     public Integer getId() {
         return id;
@@ -53,10 +62,6 @@ public class WhiteboardItemEntity {
 
     public String getDetail() {
         return detail;
-    }
-
-    public Timestamp getCreatedOn() {
-        return createdOn;
     }
 
     public Timestamp getExpiresOn() {

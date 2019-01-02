@@ -23,7 +23,6 @@ public class UserEntity {
     private String username;
     @Column
     private String password;
-    @Column
     private String token;
     @Column
     private Boolean active;
@@ -33,6 +32,14 @@ public class UserEntity {
         this.username = userRegisterDTO.getUsername();
         this.password = encrypt(userRegisterDTO.getPassword());
         this.active = true;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
