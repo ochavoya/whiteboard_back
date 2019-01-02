@@ -20,7 +20,7 @@ public class WhiteboardItemEntity {
     private Integer boardId;
     @Column
     private Integer sectionId;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="id")
     private UserEntity user;
     @Column
