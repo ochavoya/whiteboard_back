@@ -1,9 +1,12 @@
 package com.ochavoya.whiteboard.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ochavoya.whiteboard.dto.UserLoginDTO;
 import com.ochavoya.whiteboard.dto.UserRegisterDTO;
 import com.ochavoya.whiteboard.dto.WhiteboardResponse;
+import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
 import com.ochavoya.whiteboard.service.UserRepositoryService;
+import com.ochavoya.whiteboard.service.WhiteboardDataRepositoryService;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +17,16 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/whiteboard")
 public class WhiteboardController {
+    private static final String GENERIC_ERROR = "There was a serve error while processing your request";
     private UserRepositoryService userRepositoryService;
+    private WhiteboardDataRepositoryService whiteboardDataRepositoryService;
+    private ObjectMapper objectMapper;
 
-    public WhiteboardController(UserRepositoryService userRepositoryService) {
+
+    public WhiteboardController(UserRepositoryService userRepositoryService, WhiteboardDataRepositoryService whiteboardDataRepositoryService, ObjectMapper objectMapper) {
         this.userRepositoryService = userRepositoryService;
+        this.whiteboardDataRepositoryService = whiteboardDataRepositoryService;
+        this.objectMapper = objectMapper;
     }
 
     @PostMapping("/register")
@@ -42,7 +51,7 @@ public class WhiteboardController {
             return userRepositoryService.login(userLoginDTO);
         }
         catch (RuntimeException rte) {
-            return new WhiteboardResponse(false, rte.getMessage());
+            return new WhiteboardResponse(false, GENERIC_ERROR);
         }
     }
 
@@ -53,7 +62,32 @@ public class WhiteboardController {
             return userRepositoryService.logout(username);
         }
         catch (RuntimeException rte) {
-            return new WhiteboardResponse(false, rte.getMessage());
+            return new WhiteboardResponse(false, GENERIC_ERROR);
+        }
+    }
+
+    // TODO: Finish implementing the methods create() and load()
+
+    @PostMapping("/create")
+    public WhiteboardResponse create(@Valid WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return new WhiteboardResponse(false, "form has errors");
+        }
+        try {
+            return new WhiteboardResponse(true, "message");
+        }
+        catch (RuntimeException rte) {
+            return new WhiteboardResponse(false, GENERIC_ERROR);
+        }
+    }
+
+    @PostMapping("/load")
+    public WhiteboardResponse load() {
+        try {
+            return new WhiteboardResponse(true, "message");
+        }
+        catch (RuntimeException rte) {
+            return new WhiteboardResponse(false, GENERIC_ERROR);
         }
     }
 }

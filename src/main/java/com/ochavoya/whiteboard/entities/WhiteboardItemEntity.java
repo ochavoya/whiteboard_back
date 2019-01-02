@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Table(name="items")
 @Data
 @NoArgsConstructor
-public class ItemEntity {
+public class WhiteboardItemEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
