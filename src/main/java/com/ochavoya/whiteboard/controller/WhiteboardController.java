@@ -35,12 +35,7 @@ public class WhiteboardController {
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
-        try {
-            return userRepositoryService.register(userRegisterDTO);
-        }
-        catch (RuntimeException rte) {
-            return new WhiteboardResponse(false, rte.getMessage());
-        }
+        return userRepositoryService.register(userRegisterDTO);
     }
 
     @PostMapping("/login")
@@ -48,47 +43,28 @@ public class WhiteboardController {
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
-        try {
-            return userRepositoryService.login(userLoginDTO);
-        }
-        catch (RuntimeException rte) {
-            return new WhiteboardResponse(false, GENERIC_ERROR);
-        }
+        return userRepositoryService.login(userLoginDTO);
     }
 
     @PostMapping("/logout")
     public WhiteboardResponse logout(String username) {
 
-        try {
-            return userRepositoryService.logout(username);
-        }
-        catch (RuntimeException rte) {
-            return new WhiteboardResponse(false, GENERIC_ERROR);
-        }
+        return userRepositoryService.logout(username);
     }
 
     // TODO: Finish implementing the methods create() and load()
 
     @PostMapping("/create")
-    public WhiteboardResponse create(@Valid WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult) {
+    public WhiteboardResponse create(@Valid WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
+    throws JsonProcessingException{
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
-        try {
-            return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.create(whiteboardItemDTO)));
-        }
-        catch (RuntimeException | JsonProcessingException ex) {
-            return new WhiteboardResponse(false, GENERIC_ERROR);
-        }
+        return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.create(whiteboardItemDTO)));
     }
 
     @PostMapping("/load")
-    public WhiteboardResponse load() {
-        try {
-            return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.load()));
-        }
-        catch (RuntimeException | JsonProcessingException ex) {
-            return new WhiteboardResponse(false, GENERIC_ERROR);
-        }
+    public WhiteboardResponse load() throws JsonProcessingException {
+        return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.load()));
     }
 }
