@@ -21,6 +21,15 @@ public class WhiteboardItemDTO {
     private Timestamp expiresOn;
     private String token;
 
+    public WhiteboardItemDTO(Integer boardId, Integer sectionId, String title, String detail, Timestamp expiresOn, String token) {
+        this.boardId = boardId;
+        this.sectionId = sectionId;
+        this.title = title;
+        this.detail = detail;
+        this.expiresOn = expiresOn;
+        this.token  = token;
+    }
+
     public WhiteboardItemDTO(WhiteboardItemEntity whiteboardItemEntity) {
         this.boardId = whiteboardItemEntity.getBoardId();
         this.sectionId = whiteboardItemEntity.getSectionId();

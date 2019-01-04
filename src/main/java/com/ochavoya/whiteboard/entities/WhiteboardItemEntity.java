@@ -40,10 +40,6 @@ public class WhiteboardItemEntity {
         this.active = true;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public Integer getBoardId() {
         return boardId;
     }
@@ -52,20 +48,12 @@ public class WhiteboardItemEntity {
         return sectionId;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
     public String getTitle() {
         return title;
     }
 
     public String getDetail() {
         return detail;
-    }
-
-    public Timestamp getExpiresOn() {
-        return expiresOn;
     }
 
     public Boolean getActive() {

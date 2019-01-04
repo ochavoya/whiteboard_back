@@ -2,10 +2,12 @@ package com.ochavoya.whiteboard;
 
 import com.ochavoya.whiteboard.dto.UserLoginDTO;
 import com.ochavoya.whiteboard.dto.UserRegisterDTO;
+import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
 import com.ochavoya.whiteboard.dto.WhiteboardResponse;
 import com.ochavoya.whiteboard.entities.UserEntity;
 import com.ochavoya.whiteboard.repository.UserRepository;
 import com.ochavoya.whiteboard.service.UserRepositoryService;
+import com.ochavoya.whiteboard.service.WhiteboardDataRepositoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -24,74 +28,101 @@ import static org.junit.Assert.assertFalse;
 @SpringBootTest
 public class WhiteboardApplicationTests {
 
-	private Pattern pattern = Pattern.compile("^[0123456789abcdef]{32}$");
+    private Pattern pattern = Pattern.compile("^[0123456789abcdef]{32}$");
 
-	@Autowired
-	private UserRepositoryService userRepositoryService;
+    @Autowired
+    private UserRepositoryService userRepositoryService;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Test
-	public void contextLoads() {
-	}
+    @Autowired
+    private WhiteboardDataRepositoryService whiteboardDataRepositoryService;
 
-	@Test
-	@Transactional
-	public void test_UserRegistration() {
-		// Prepare
-		UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
-		userRegisterDTO.setUsername("__test__");
-		userRegisterDTO.setName("John Doe");
-		userRegisterDTO.setPassword("password");
+    @Test
+    public void contextLoads() {
+    }
 
-		// Act
-		WhiteboardResponse response = userRepositoryService.register(userRegisterDTO);
-		List<UserEntity> userEntityList = userRepository.getUserEntitiesByUsername("__test__");
+    private UserRegisterDTO userRegisterDTO() {
 
-		// Assert
-		assertTrue(response.getSuccess());
-		assertEquals("User __test__ was successfully registered", response.getMessage());
-		assertEquals(userEntityList.size(),1);
+        UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
+        userRegisterDTO.setUsername("__test__");
+        userRegisterDTO.setName("John Doe");
+        userRegisterDTO.setPassword("password");
 
-		// Act - repeat registration
-		response = userRepositoryService.register(userRegisterDTO);
+        return userRegisterDTO;
 
-		// Assert
-		assertFalse(response.getSuccess());
-		assertEquals("Username __test__ is already taken", response.getMessage());
-	}
+    }
 
-	@Test
-	@Transactional
-	public void test_LoginLogout() {
-		// Prepare
-		UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
-		userRegisterDTO.setUsername("__test__");
-		userRegisterDTO.setName("John Doe");
-		userRegisterDTO.setPassword("password");
-		userRepositoryService.register(userRegisterDTO);
+    private WhiteboardResponse registerMockUser() {
+        return userRepositoryService.register(userRegisterDTO());
+    }
 
-		// Act
-		WhiteboardResponse response = userRepositoryService.login(new UserLoginDTO("__test__", "password"));
+    @Test
+    @Transactional
+    public void test_UserRegistration() {
+        // Prepare
+        WhiteboardResponse response = registerMockUser();
+        List<UserEntity> userEntityList = userRepository.getUserEntitiesByUsername("__test__");
 
-		// Assert
-		assertTrue(response.getSuccess());
-		assertTrue(pattern.matcher(response.getMessage()).matches());
+        // Assert
+        assertTrue(response.getSuccess());
+        assertEquals("User __test__ was successfully registered", response.getMessage());
+        assertEquals(userEntityList.size(), 1);
 
-		// Act
-		response = userRepositoryService.logout("__test__");
+        // Act - repeat registration
+        response = registerMockUser();
 
-		// Assert
-		assertFalse(response.getSuccess());
-		assertEquals("User __test__ was successfully logged out", response.getMessage());
+        // Assert
+        assertFalse(response.getSuccess());
+        assertEquals("Username __test__ is already taken", response.getMessage());
+    }
 
-		// Act
-		response = userRepositoryService.login(new UserLoginDTO("__test__", "wrong_password"));
+    @Test
+    @Transactional
+    public void test_LoginLogout() {
+        // Prepare
+        UserRegisterDTO userRegisterDTO  = userRegisterDTO();
 
-		// Assert
-		assertFalse(response.getSuccess());
-		assertEquals("Wrong username/password", response.getMessage());
-	}
+        userRepositoryService.register(userRegisterDTO);
+
+        // Act
+        WhiteboardResponse response = userRepositoryService.login(new UserLoginDTO("__test__", "password"));
+
+        // Assert
+        assertTrue(response.getSuccess());
+        assertTrue(pattern.matcher(response.getMessage()).matches());
+
+        // Act
+        response = userRepositoryService.logout("__test__");
+
+        // Assert
+        assertFalse(response.getSuccess());
+        assertEquals("User __test__ was successfully logged out", response.getMessage());
+
+        // Act
+        response = userRepositoryService.login(new UserLoginDTO("__test__", "wrong_password"));
+
+        // Assert
+        assertFalse(response.getSuccess());
+        assertEquals("Wrong username/password", response.getMessage());
+    }
+
+    @Transactional
+    @Test
+    public void test_create() {
+        // Prepare
+        registerMockUser().getMessage();
+
+        String token = userRepositoryService.login(new UserLoginDTO("__test__", "password"))
+                .getMessage();
+
+        WhiteboardItemDTO item = new WhiteboardItemDTO(1, 1, "test title", "test detail", new Timestamp((new Date()).getTime()), token);
+
+        // Act
+        item=whiteboardDataRepositoryService.create(item);
+
+        assertTrue(item.getBoardId()==1);
+    }
 }
 
