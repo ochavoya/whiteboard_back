@@ -39,7 +39,7 @@ public class WhiteboardDataRepositoryService {
             throw new RuntimeException("Invalid token");
         }
         UserEntity userEntity= userRepository.getUserEntityByToken(whiteboardItemDTO.getToken());
-        WhiteboardItemEntity whiteboardItemEntity = new WhiteboardItemEntity(whiteboardItemDTO, userEntity.getId());
+        WhiteboardItemEntity whiteboardItemEntity = new WhiteboardItemEntity(whiteboardItemDTO, userEntity.getUserId());
         whiteboardDataRepository.save(whiteboardItemEntity);
         return whiteboardItemDTO;
     }

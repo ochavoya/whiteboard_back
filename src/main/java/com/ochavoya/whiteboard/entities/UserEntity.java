@@ -12,17 +12,17 @@ import static com.ochavoya.whiteboard.utils.Utils.encrypt;
 @Table(name = "user")
 @NoArgsConstructor
 public class UserEntity {
-
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer userId;
     @Column
     private String name;
     @Column
     private String username;
     @Column
     private String password;
+    @Column
     private String token;
     @Column
     private Boolean active;
@@ -34,12 +34,12 @@ public class UserEntity {
         this.active = true;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getName() {

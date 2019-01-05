@@ -2,6 +2,7 @@ package com.ochavoya.whiteboard.entities;
 
 
 import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ public class WhiteboardItemEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer itemId;
     @Column
     private Integer boardId;
     @Column
@@ -44,19 +45,55 @@ public class WhiteboardItemEntity {
         return boardId;
     }
 
+    public void setBoardId(Integer boardId) {
+        this.boardId = boardId;
+    }
+
     public Integer getSectionId() {
         return sectionId;
+    }
+
+    public void setSectionId(Integer sectionId) {
+        this.sectionId = sectionId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDetail() {
         return detail;
     }
 
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public Timestamp getExpiresOn() {
+        return expiresOn;
+    }
+
+    public void setExpiresOn(Timestamp expiresOn) {
+        this.expiresOn = expiresOn;
+    }
+
     public Boolean getActive() {
         return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
