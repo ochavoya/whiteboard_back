@@ -9,6 +9,7 @@ import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
 import com.ochavoya.whiteboard.service.UserRepositoryService;
 import com.ochavoya.whiteboard.service.WhiteboardDataRepositoryService;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,7 +62,7 @@ public class WhiteboardController {
         return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.create(whiteboardItemDTO)));
     }
 
-    @PostMapping("/load")
+    @GetMapping("")
     public WhiteboardResponse load() throws JsonProcessingException {
         return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.load()));
     }
