@@ -52,8 +52,6 @@ public class WhiteboardController {
         return userRepositoryService.logout(username);
     }
 
-    // TODO: Finish implementing the methods create() and load()
-
     @PostMapping("/create")
     public WhiteboardResponse create(@Valid WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
     throws JsonProcessingException{

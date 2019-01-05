@@ -44,14 +44,17 @@ public class WhiteboardApplicationTests {
     }
 
     private WhiteboardResponse registerValidUser() {
+
         UserRegisterDTO userRegisterDTO = new UserRegisterDTO();
         userRegisterDTO.setUsername("__test__");
         userRegisterDTO.setName("John Doe");
         userRegisterDTO.setPassword("password");
+
         return userRepositoryService.register(userRegisterDTO);
     }
 
     private WhiteboardItemDTO createValidRecord() {
+
         registerValidUser();
         String token = userRepositoryService.login(new UserLoginDTO("__test__", "password")).getMessage();
 
