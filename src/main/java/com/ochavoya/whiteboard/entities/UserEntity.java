@@ -10,7 +10,6 @@ import static com.ochavoya.whiteboard.utils.Utils.encrypt;
 
 @Entity
 @Table(name = "user")
-@NoArgsConstructor
 public class UserEntity {
     @Id
     @Column
@@ -26,6 +25,9 @@ public class UserEntity {
     private String token;
     @Column
     private Boolean active;
+
+    public UserEntity() {
+    }
 
     public UserEntity(UserRegisterDTO userRegisterDTO) {
         this.name = userRegisterDTO.getName();

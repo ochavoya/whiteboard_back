@@ -23,8 +23,8 @@ CREATE TABLE items (
   user_id int(11) NOT NULL,
   title VARCHAR(64) NOT NULL,
   detail VARCHAR(200) NOT NULL,
-  createdOn timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  expiresOn timestamp NULL DEFAULT NULL,
+  created_on timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  expires_on timestamp NULL DEFAULT NULL,
   active tinyint(1) DEFAULT 1,
   CONSTRAINT FOREIGN KEY (user_id) REFERENCES user(user_id)
 );

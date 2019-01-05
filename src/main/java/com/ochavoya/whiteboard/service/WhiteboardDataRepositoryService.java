@@ -25,7 +25,7 @@ public class WhiteboardDataRepositoryService {
 
     @Transactional
     public List<WhiteboardItemDTO> load() {
-        return whiteboardDataRepository.getWhiteboardItemEntitiesByExpiresOnBefore(new Timestamp((new Date()).getTime()))
+        return whiteboardDataRepository.getWhiteboardItemEntitiesByExpiresOnAfter(new Timestamp((new Date()).getTime()))
                 .stream()
                 .filter(x->x.getActive())
                 .map(x-> new WhiteboardItemDTO(x))
