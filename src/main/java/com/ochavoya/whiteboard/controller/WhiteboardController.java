@@ -53,7 +53,7 @@ public class WhiteboardController {
         return userRepositoryService.logout(username);
     }
 
-    @PostMapping("/create")
+    @PostMapping("")
     public WhiteboardResponse create(@Valid WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
     throws JsonProcessingException{
         if(bindingResult.hasErrors()) {
