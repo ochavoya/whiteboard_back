@@ -9,10 +9,7 @@ import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
 import com.ochavoya.whiteboard.service.UserRepositoryService;
 import com.ochavoya.whiteboard.service.WhiteboardDataRepositoryService;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -32,7 +29,7 @@ public class WhiteboardController {
     }
 
     @PostMapping("/register")
-    public WhiteboardResponse register(@Valid UserRegisterDTO userRegisterDTO, BindingResult bindingResult) {
+    public WhiteboardResponse register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
@@ -40,7 +37,7 @@ public class WhiteboardController {
     }
 
     @PostMapping("/login")
-    public WhiteboardResponse login(@Valid UserLoginDTO userLoginDTO, BindingResult bindingResult) {
+    public WhiteboardResponse login(@Valid @RequestBody UserLoginDTO userLoginDTO, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
@@ -48,13 +45,12 @@ public class WhiteboardController {
     }
 
     @PostMapping("/logout")
-    public WhiteboardResponse logout(String username) {
-
+    public WhiteboardResponse logout(@RequestBody String username) {
         return userRepositoryService.logout(username);
     }
 
     @PostMapping("")
-    public WhiteboardResponse create(@Valid WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
+    public WhiteboardResponse create(@Valid @RequestBody WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
     throws JsonProcessingException{
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
