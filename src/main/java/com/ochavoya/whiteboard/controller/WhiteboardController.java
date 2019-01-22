@@ -9,17 +9,13 @@ import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
 import com.ochavoya.whiteboard.service.UserRepositoryService;
 import com.ochavoya.whiteboard.service.WhiteboardDataRepositoryService;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/whiteboard")
 public class WhiteboardController {
-    private static final String GENERIC_ERROR = "There was a serve error while processing your request";
     private UserRepositoryService userRepositoryService;
     private WhiteboardDataRepositoryService whiteboardDataRepositoryService;
     private ObjectMapper objectMapper;
@@ -32,7 +28,7 @@ public class WhiteboardController {
     }
 
     @PostMapping("/register")
-    public WhiteboardResponse register(@Valid UserRegisterDTO userRegisterDTO, BindingResult bindingResult) {
+    public WhiteboardResponse register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult bindingResult) {
         System.out.println("WhiteboardController.register() - " + userRegisterDTO.getName() + " - " + userRegisterDTO.getUsername());
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
@@ -41,7 +37,7 @@ public class WhiteboardController {
     }
 
     @PostMapping("/login")
-    public WhiteboardResponse login(@Valid UserLoginDTO userLoginDTO, BindingResult bindingResult) {
+    public WhiteboardResponse login(@Valid @RequestBody UserLoginDTO userLoginDTO, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
@@ -55,7 +51,7 @@ public class WhiteboardController {
     }
 
     @PostMapping("/create")
-    public WhiteboardResponse create(@Valid WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
+    public WhiteboardResponse create(@Valid @RequestBody WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
     throws JsonProcessingException{
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");

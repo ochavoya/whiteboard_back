@@ -24,4 +24,5 @@ public class UserLoginDTO {
     public String getPassword() {
         return password;
     }
+
 }
