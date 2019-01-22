@@ -33,6 +33,7 @@ public class WhiteboardController {
 
     @PostMapping("/register")
     public WhiteboardResponse register(@Valid UserRegisterDTO userRegisterDTO, BindingResult bindingResult) {
+        System.out.println("WhiteboardController.register() - " + userRegisterDTO.getName() + " - " + userRegisterDTO.getUsername());
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
