@@ -31,7 +31,6 @@ public class WhiteboardController {
 
     @PostMapping("/register")
     public WhiteboardResponse register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult bindingResult) {
-        System.out.println("WhiteboardController.register() - " + userRegisterDTO.getName() + " - " + userRegisterDTO.getUsername());
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
@@ -40,6 +39,7 @@ public class WhiteboardController {
 
     @PostMapping("/login")
     public WhiteboardResponse login(@Valid @RequestBody UserLoginDTO userLoginDTO, BindingResult bindingResult) {
+        System.err.println(String.valueOf(userLoginDTO));
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
