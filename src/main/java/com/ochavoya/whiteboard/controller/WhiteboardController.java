@@ -8,12 +8,14 @@ import com.ochavoya.whiteboard.dto.WhiteboardResponse;
 import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
 import com.ochavoya.whiteboard.service.UserRepositoryService;
 import com.ochavoya.whiteboard.service.WhiteboardDataRepositoryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
+@ResponseStatus(HttpStatus.ACCEPTED)
 @RequestMapping("/whiteboard")
 public class WhiteboardController {
     private UserRepositoryService userRepositoryService;
