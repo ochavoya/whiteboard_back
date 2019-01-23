@@ -16,7 +16,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/whiteboard")
 public class WhiteboardController {
-    private static final String GENERIC_ERROR = "There was a serve error while processing your request";
     private UserRepositoryService userRepositoryService;
     private WhiteboardDataRepositoryService whiteboardDataRepositoryService;
     private ObjectMapper objectMapper;
@@ -30,6 +29,7 @@ public class WhiteboardController {
 
     @PostMapping("/register")
     public WhiteboardResponse register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult bindingResult) {
+        System.out.println("WhiteboardController.register() - " + userRegisterDTO.getName() + " - " + userRegisterDTO.getUsername());
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
@@ -45,11 +45,12 @@ public class WhiteboardController {
     }
 
     @PostMapping("/logout")
-    public WhiteboardResponse logout(@RequestBody String username) {
+    public WhiteboardResponse logout(String username) {
+
         return userRepositoryService.logout(username);
     }
 
-    @PostMapping("")
+    @PostMapping("/create")
     public WhiteboardResponse create(@Valid @RequestBody WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
     throws JsonProcessingException{
         if(bindingResult.hasErrors()) {
