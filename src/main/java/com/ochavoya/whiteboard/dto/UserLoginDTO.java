@@ -12,10 +12,7 @@ public class UserLoginDTO {
     @Length(min=7)
     private String password;
 
-    public UserLoginDTO(@NotNull @Length(min = 1, max = 16) String username, @NotNull @Length(min = 7) String password) {
-        this.username = username;
-        this.password = password;
-    }
+    public UserLoginDTO(){}
 
     public String getUsername() {
         return username;
