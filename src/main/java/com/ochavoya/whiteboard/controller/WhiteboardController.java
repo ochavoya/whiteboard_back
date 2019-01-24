@@ -55,6 +55,7 @@ public class WhiteboardController {
     @PostMapping("/create")
     public WhiteboardResponse create(@Valid @RequestBody WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
     throws JsonProcessingException{
+
         if(bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }

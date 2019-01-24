@@ -19,7 +19,10 @@ public class WhiteboardItemDTO {
     private String detail;
     @NotNull
     private Timestamp expiresOn;
+    @NotNull
     private String token;
+
+    public WhiteboardItemDTO(){}
 
     public WhiteboardItemDTO(Integer boardId, Integer sectionId, String title, String detail, Timestamp expiresOn, String token) {
         this.boardId = boardId;

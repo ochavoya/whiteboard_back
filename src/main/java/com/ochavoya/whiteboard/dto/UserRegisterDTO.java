@@ -14,9 +14,13 @@ public class UserRegisterDTO {
     @Length(min=7)
     private String password;
 
-    public UserRegisterDTO() {
-    }
+    public UserRegisterDTO() { }
 
+    public UserRegisterDTO(@NotNull @Length(min = 1, max = 64) String name, @NotNull @Length(min = 3, max = 16) String username, @NotNull @Length(min = 7) String password) {
+        this.name = name;
+        this.username = username;
+        this.password = password;
+    }
 
     public String getName() {
         return name;
