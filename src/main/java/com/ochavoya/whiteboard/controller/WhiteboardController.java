@@ -16,12 +16,11 @@ import javax.validation.Valid;
 
 @RestController
 @ResponseStatus(HttpStatus.ACCEPTED)
-@RequestMapping("/whiteboard")
+@RequestMapping(value = "/whiteboard", produces = "application/json")
 public class WhiteboardController {
     private UserRepositoryService userRepositoryService;
     private WhiteboardDataRepositoryService whiteboardDataRepositoryService;
     private ObjectMapper objectMapper;
-
 
     public WhiteboardController(UserRepositoryService userRepositoryService, WhiteboardDataRepositoryService whiteboardDataRepositoryService, ObjectMapper objectMapper) {
         this.userRepositoryService = userRepositoryService;
@@ -31,7 +30,7 @@ public class WhiteboardController {
 
     @PostMapping("/register")
     public WhiteboardResponse register(@Valid @RequestBody UserRegisterDTO userRegisterDTO, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
         return userRepositoryService.register(userRegisterDTO);
@@ -39,8 +38,7 @@ public class WhiteboardController {
 
     @PostMapping("/login")
     public WhiteboardResponse login(@Valid @RequestBody UserLoginDTO userLoginDTO, BindingResult bindingResult) {
-        System.err.println(String.valueOf(userLoginDTO));
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
         return userRepositoryService.login(userLoginDTO);
@@ -54,9 +52,9 @@ public class WhiteboardController {
 
     @PostMapping("/create")
     public WhiteboardResponse create(@Valid @RequestBody WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
-    throws JsonProcessingException{
+            throws JsonProcessingException {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
         return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.create(whiteboardItemDTO)));
