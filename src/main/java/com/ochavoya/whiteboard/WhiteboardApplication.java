@@ -18,11 +18,6 @@ public class WhiteboardApplication {
 	}
 
 	@Bean
-	public ObjectMapper getObjectMapper() {
-		return new ObjectMapper();
-	}
-
-	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
 			@Override

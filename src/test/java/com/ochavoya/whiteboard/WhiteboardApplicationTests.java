@@ -17,8 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -58,7 +56,7 @@ public class WhiteboardApplicationTests {
     private WhiteboardItemDTO createValidRecord() {
 
         registerValidUser();
-        String token = userRepositoryService.login(new UserLoginDTO("__test__", "password")).getMessage();
+        String token = userRepositoryService.login(new UserLoginDTO("__test__", "password")).getData();
 
         Date date = new Date();
         date.setTime(date.getTime() + 24 * 3600 * 1000);
@@ -77,7 +75,7 @@ public class WhiteboardApplicationTests {
 
         // Assert
         assertTrue(response.getSuccess());
-        assertEquals("User __test__ was successfully registered", response.getMessage());
+        assertEquals("User __test__ was successfully registered", response.getData());
         assertEquals(1, userEntityList.size());
 
         // Act - repeat registration
@@ -85,7 +83,7 @@ public class WhiteboardApplicationTests {
 
         // Assert
         assertFalse(response.getSuccess());
-        assertEquals("Username __test__ is already taken", response.getMessage());
+        assertEquals("Username __test__ is already taken", response.getData());
     }
 
     @Test
@@ -99,21 +97,21 @@ public class WhiteboardApplicationTests {
 
         // Assert
         assertTrue(response.getSuccess());
-        assertTrue(pattern.matcher(response.getMessage()).matches());
+        assertTrue(pattern.matcher(response.getData()).matches());
 
         // Act
         response = userRepositoryService.logout("__test__");
 
         // Assert
         assertFalse(response.getSuccess());
-        assertEquals("User __test__ was successfully logged out", response.getMessage());
+        assertEquals("User __test__ was successfully logged out", response.getData());
 
         // Act
         response = userRepositoryService.login(new UserLoginDTO("__test__", "wrong_password"));
 
         // Assert
         assertFalse(response.getSuccess());
-        assertEquals("Wrong username/password", response.getMessage());
+        assertEquals("Wrong username/password", response.getData());
     }
 
     @Test

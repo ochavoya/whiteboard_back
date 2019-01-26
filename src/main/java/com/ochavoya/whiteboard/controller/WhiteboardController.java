@@ -1,7 +1,6 @@
 package com.ochavoya.whiteboard.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ochavoya.whiteboard.dto.UserLoginDTO;
 import com.ochavoya.whiteboard.dto.UserRegisterDTO;
 import com.ochavoya.whiteboard.dto.WhiteboardResponse;
@@ -20,12 +19,10 @@ import javax.validation.Valid;
 public class WhiteboardController {
     private UserRepositoryService userRepositoryService;
     private WhiteboardDataRepositoryService whiteboardDataRepositoryService;
-    private ObjectMapper objectMapper;
 
-    public WhiteboardController(UserRepositoryService userRepositoryService, WhiteboardDataRepositoryService whiteboardDataRepositoryService, ObjectMapper objectMapper) {
+    public WhiteboardController(UserRepositoryService userRepositoryService, WhiteboardDataRepositoryService whiteboardDataRepositoryService) {
         this.userRepositoryService = userRepositoryService;
         this.whiteboardDataRepositoryService = whiteboardDataRepositoryService;
-        this.objectMapper = objectMapper;
     }
 
     @PostMapping("/register")
@@ -51,17 +48,17 @@ public class WhiteboardController {
     }
 
     @PostMapping("/create")
-    public WhiteboardResponse create(@Valid @RequestBody WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult)
-            throws JsonProcessingException {
+    public WhiteboardResponse create(@Valid @RequestBody WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult) {
+        System.out.println("Processing: " + String.valueOf(whiteboardItemDTO));
 
         if (bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
-        return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.create(whiteboardItemDTO)));
+        return new WhiteboardResponse(true, whiteboardDataRepositoryService.create(whiteboardItemDTO));
     }
 
     @GetMapping("")
-    public WhiteboardResponse load() throws JsonProcessingException {
-        return new WhiteboardResponse(true, objectMapper.writeValueAsString(whiteboardDataRepositoryService.load()));
+    public WhiteboardResponse load() {
+        return new WhiteboardResponse(true, whiteboardDataRepositoryService.load());
     }
 }

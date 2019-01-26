@@ -2,18 +2,18 @@ package com.ochavoya.whiteboard.dto;
 
 public class WhiteboardResponse {
     private Boolean success;
-    private String message;
+    private Object data;
 
-    public WhiteboardResponse(Boolean success, String message) {
+    public WhiteboardResponse(Boolean success, Object data) {
         this.success = success;
-        this.message = message;
+        this.data = data;
     }
 
     public Boolean getSuccess() {
         return success;
     }
 
-    public String getMessage() {
-        return message;
+    public Object getData() {
+        return data;
     }
 }
