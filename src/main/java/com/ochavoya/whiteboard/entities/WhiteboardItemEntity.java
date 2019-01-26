@@ -31,6 +31,8 @@ public class WhiteboardItemEntity {
     @Column
     private Boolean active;
 
+    public WhiteboardItemEntity(){}
+
     public WhiteboardItemEntity(WhiteboardItemDTO whiteboardItemDTO, Integer userId) {
         this.boardId = whiteboardItemDTO.getBoardId();
         this.sectionId = whiteboardItemDTO.getSectionId();

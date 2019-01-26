@@ -11,7 +11,7 @@ public class RuntimeExceptionHandler {
 
     @ExceptionHandler(value = RuntimeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)  // 409
-    public void doNothing() {
-        System.out.println("hello!");
+    public void doNothing(RuntimeException rte) {
+        rte.printStackTrace();
     }
 }

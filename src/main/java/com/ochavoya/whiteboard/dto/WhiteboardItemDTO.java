@@ -38,6 +38,7 @@ public class WhiteboardItemDTO {
         this.sectionId = whiteboardItemEntity.getSectionId();
         this.title = whiteboardItemEntity.getTitle();
         this.detail = whiteboardItemEntity.getDetail();
+        this.expiresOn = whiteboardItemEntity.getExpiresOn();
     }
 
     public Integer getBoardId() {
