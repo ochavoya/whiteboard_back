@@ -56,7 +56,7 @@ public class WhiteboardApplicationTests {
     private WhiteboardItemDTO createValidRecord() {
 
         registerValidUser();
-        String token = userRepositoryService.login(new UserLoginDTO("__test__", "password")).getData();
+        String token = (String)userRepositoryService.login(new UserLoginDTO("__test__", "password")).getData();
 
         Date date = new Date();
         date.setTime(date.getTime() + 24 * 3600 * 1000);
@@ -97,7 +97,7 @@ public class WhiteboardApplicationTests {
 
         // Assert
         assertTrue(response.getSuccess());
-        assertTrue(pattern.matcher(response.getData()).matches());
+        assertTrue(pattern.matcher((String)response.getData()).matches());
 
         // Act
         response = userRepositoryService.logout("__test__");
@@ -134,6 +134,6 @@ public class WhiteboardApplicationTests {
 
         List<WhiteboardItemDTO> response = whiteboardDataRepositoryService.load();
 
-        assertTrue(response.size() == 1);
+        assertTrue(response.size() >= 1);
     }
 }
