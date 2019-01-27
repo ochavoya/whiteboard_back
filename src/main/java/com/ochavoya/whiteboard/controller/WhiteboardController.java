@@ -60,7 +60,6 @@ public class WhiteboardController {
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public WhiteboardResponse load() {
-        System.out.println("load() - executed");
         return new WhiteboardResponse(true, whiteboardDataRepositoryService.load());
     }
 }
