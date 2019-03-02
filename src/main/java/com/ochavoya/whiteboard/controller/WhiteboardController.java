@@ -49,8 +49,6 @@ public class WhiteboardController {
 
     @PostMapping("/create")
     public WhiteboardResponse create(@Valid @RequestBody WhiteboardItemDTO whiteboardItemDTO, BindingResult bindingResult) {
-        System.out.println("Processing: " + String.valueOf(whiteboardItemDTO));
-
         if (bindingResult.hasErrors()) {
             return new WhiteboardResponse(false, "form has errors");
         }
