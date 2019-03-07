@@ -2,7 +2,6 @@ package com.ochavoya.whiteboard.entities;
 
 
 import com.ochavoya.whiteboard.dto.WhiteboardItemDTO;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -31,7 +30,8 @@ public class WhiteboardItemEntity {
     @Column
     private Boolean active;
 
-    public WhiteboardItemEntity(){}
+    public WhiteboardItemEntity() {
+    }
 
     public WhiteboardItemEntity(WhiteboardItemDTO whiteboardItemDTO, Integer userId) {
         this.boardId = whiteboardItemDTO.getBoardId();
