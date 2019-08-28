@@ -31,7 +31,7 @@ public class WhiteboardDataRepositoryService {
                 .filter(x->x.getActive())
                 .map(x-> new WhiteboardItemDTO(x))
                 .collect(Collectors.toList());
-        response.sort( (x,y)-> y.getExpiresOn().compareTo(x.getExpiresOn()));
+        response.sort( (x,y)-> x.getExpiresOn().compareTo(y.getExpiresOn()));
         return response;
     }
 
